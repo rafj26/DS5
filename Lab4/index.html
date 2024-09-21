@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Dinámico - Funciones Anónimas</title>
+</head>
+<body>
+    <h1>Formulario Dinámico</h1>
+    <label for="campoTexto">Escribe algo:</label>
+    <input type="text" id="campoTexto">
+    <p>Texto invertido: <span id="textoInvertido"></span></p>
+
+    <script>
+         
+        const invertirTexto = (texto) => texto.split('').reverse().join('');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const campoTexto = document.getElementById('campoTexto');
+            const textoInvertido = document.getElementById('textoInvertido');
+
+            campoTexto.addEventListener('input', () => {
+                textoInvertido.textContent = invertirTexto(campoTexto.value);
+            });
+        });
+    </script>
+</body>
+</html>
