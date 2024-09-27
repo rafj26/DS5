@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Dinámico - Funciones Anónimas</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .option {
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #textoInvertido {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        
+        .color-azul {
+            color: blue;
+        }
+
+        .color-verde {
+            color: green;
+        }
+
+        .color-rojo {
+            color: red;
+        }
+
+        .color-amarillo {
+            color: yellow;
+        }
+
+        .color-naranja {
+            color: orange;
+        }
+
+    
+        #colorMenu {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .color-selector select {
+            width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: white;
+            color: black;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <section class="option">
+        <h1>Formulario Dinámico</h1>
+        <label for="campoTexto">Escribe algo:</label>
+        <input type="text" id="campoTexto">
+        <p>Texto invertido: <span id="textoInvertido"></span></p>
+        
+        <div class="color-selector">
+            <button id="openColorMenuBtn">Elige un color</button>
+            <div id="colorMenu">
+                <select id="colorSelect" size="5">
+                    <option value="color-azul">Azul</option>
+                    <option value="color-verde">Verde</option>
+                    <option value="color-rojo">Rojo</option>
+                    <option value="color-amarillo">Amarillo</option>
+                    <option value="color-naranja">Naranja</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        // Modulo para manejar la lógica de la app
+        const app = (() => {
+            // Función para invertir el texto
+            const invertirTexto = (texto) => texto.split('').reverse().join('');
+
+            // Función para aplicar color seleccionado al texto invertido
+            const aplicarColorTexto = (colorClase) => {
+                const textoInvertido = document.getElementById('textoInvertido');
+                textoInvertido.className = colorClase; // Cambia la clase para modificar el color
+            };
+
+            // Función para abrir/cerrar el menú de colores
+            const toggleColorMenu = () => {
+                const colorMenu = document.getElementById('colorMenu');
+                if (colorMenu.style.display === 'none' || colorMenu.style.display === '') {
+                    colorMenu.style.display = 'block';
+                } else {
+                    colorMenu.style.display = 'none';
+                }
+            };
+
+            // Función para inicializar eventos
+            const init = () => {
+                const campoTexto = document.getElementById('campoTexto');
+                const colorSelect = document.getElementById('colorSelect');
+                const openColorMenuBtn = document.getElementById('openColorMenuBtn');
+
+                // Escuchar la entrada de texto
+                campoTexto.addEventListener('input', () => {
+                    document.getElementById('textoInvertido').textContent = invertirTexto(campoTexto.value);
+                });
+
+                
+                colorSelect.addEventListener('change', () => {
+                    aplicarColorTexto(colorSelect.value);
+                    toggleColorMenu(); 
+                });
+
+                
+                openColorMenuBtn.addEventListener('click', toggleColorMenu);
+            };
+
+            
+            return {
+                init
+            };
+        })();
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
+
+
+
